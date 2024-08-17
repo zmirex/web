@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zMirex | Developer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="container">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#inicio" class="nav-link"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="#proyectos" class="nav-link"><i class="fas fa-project-diagram"></i> Proyectos</a></li>
+                    <li><a href="#experiencia" class="nav-link"><i class="fas fa-briefcase"></i> Experiencia</a></li>
+                    <li><a href="#habilidades" class="nav-link"><i class="fas fa-cogs"></i> Habilidades</a></li>
+                    <li><a href="#contacto" class="nav-link"><i class="fas fa-envelope"></i> Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="inicio" class="glass-card">
+                <div class="profile-img"></div>
+                <h1 class="glitch" data-text="Juan Desarrollador">zMirex.dev</h1>
+                <p class="typewriter">Desarrollador de juegos de roblox, un staff y manager impecable de discord, youtube, twitch, kick y mucho mas!</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                </div>
+            </section>
+
+            <section id="proyectos" class="glass-card">
+                <h2 class="section-title">Proyectos Destacados</h2>
+                <div class="proyecto" data-tilt>
+                    <h3>Racing Sport</h3>
+                    <p>Un emocionante juego de carreras con colaboracion de Dominican Studios!</p>
+                    <a href="#" class="btn-neon">Ver Proyecto</a>
+                </div>
+                <div class="proyecto" data-tilt>
+                    <h3>Proximamente...</h3>
+                    <p>Un emocionante juego de pandillas, con vehiculos, buena jugabilidad y mucho mas!</p>
+                    <a href="#" class="btn-neon">Ver Proyecto</a>
+                </div>
+            </section>
+
+            <section id="experiencia" class="glass-card">
+                <h2 class="section-title">Experiencia</h2>
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-badge"><i class="fas fa-gamepad"></i></div>
+                        <div class="timeline-panel">
+                            <h3>Desarrollador de Roblox</h3>
+                            <p>3 años de experiencia creando juegos innovadores</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-badge"><i class="fab fa-discord"></i></div>
+                        <div class="timeline-panel">
+                            <h3>Staff de Discord</h3>
+                            <p>2 años gestionando comunidades y desarrollando bots</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-badge"><i class="fas fa-users"></i></div>
+                        <div class="timeline-panel">
+                            <h3>Moderador de comunidades online</h3>
+                            <p>4 años manteniendo entornos seguros y positivos</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="habilidades" class="glass-card">
+                <h2 class="section-title">Habilidades</h2>
+                <div class="skills-container">
+                    <div class="skill">
+                        <div class="skill-name">Lua</div>
+                        <div class="skill-bar">
+                            <div class="skill-per" per="90%" style="max-width:90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <div class="skill-name">JavaScript</div>
+                        <div class="skill-bar">
+                            <div class="skill-per" per="85%" style="max-width:85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <div class="skill-name">Python</div>
+                        <div class="skill-bar">
+                            <div class="skill-per" per="80%" style="max-width:80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contacto" class="glass-card">
+                <h2 class="section-title">Contacto</h2>
+                <form id="contact-form">
+                    <input type="text" placeholder="Nombre" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Mensaje" required></textarea>
+                    <button type="submit" class="btn-neon">Enviar</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

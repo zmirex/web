@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
     --primary-color: #ff0000;
-    --secondary-color: #ff0000;
+    --secondary-color: #ffffff;
     --bg-color: #0a0a0a;
     --text-color: #ffffff;
+    --heading-font: 'Rajdhani', sans-serif;
+    --body-font: 'Space Mono', monospace;
 }
 
 * {
@@ -14,47 +16,16 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--bg-color);
+    font-family: var(--body-font);
+    background: linear-gradient(45deg, #1a1a1a, #2c2c2c);
     color: var(--text-color);
     min-height: 100vh;
-    overflow-x: hidden;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    position: relative;
-    z-index: 1;
-}
-
-/* Estrellas y efecto de parpadeo */
-.stars, .twinkling {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.stars {
-    background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center;
-    z-index: -2;
-}
-
-.twinkling {
-    background: transparent url('https://i.imgur.com/XYMF4ca.png') repeat top center;
-    z-index: -1;
-    animation: move-twink-back 200s linear infinite;
-}
-
-@keyframes move-twink-back {
-    from {background-position: 0 0;}
-    to {background-position: -10000px 5000px;}
 }
 
 header {
@@ -71,48 +42,32 @@ nav ul li {
     margin: 0 1rem;
 }
 
-.nav-link {
+nav ul li a {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
-    font-family: 'Orbitron', sans-serif;
-    position: relative;
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--primary-color);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.nav-link:hover::after {
-    transform: scaleX(1);
+nav ul li a:hover {
+    color: var(--primary-color);
 }
 
 .glass-card {
     background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
 }
 
 .glass-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 h1, h2, h3 {
-    font-family: 'Orbitron', sans-serif;
     margin-bottom: 1rem;
 }
 
@@ -121,19 +76,10 @@ h1, h2, h3 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
     color: var(--primary-color);
-    text-shadow: 0 0 10px var(--primary-color);
 }
 
 .proyecto {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    transition: transform 0.3s ease;
-}
-
-.proyecto:hover {
-    transform: scale(1.05);
+    margin-bottom: 1rem;
 }
 
 .profile-img {
@@ -143,7 +89,6 @@ h1, h2, h3 {
     margin: 0 auto 1rem;
     background: url('/_85286a5d-fda8-4f3d-b099-630b79345d43.jpeg') no-repeat center center/cover;
     border: 3px solid var(--primary-color);
-    box-shadow: 0 0 20px var(--primary-color);
 }
 
 .social-icons {
@@ -163,61 +108,46 @@ h1, h2, h3 {
     color: var(--primary-color);
 }
 
-.timeline {
+.experience-timeline {
     position: relative;
-    padding: 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 2px;
-    height: 100%;
-    background: var(--primary-color);
-    transform: translateX(-50%);
+.experience-item {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
 }
 
-.timeline li {
-    list-style-type: none;
-    position: relative;
-    width: 50%;
-    padding: 20px 40px;
-    box-sizing: border-box;
+.experience-item:hover {
+    transform: translateY(-5px);
 }
 
-.timeline li:nth-child(odd) {
-    float: left;
-    clear: right;
-    transform: translateX(-30px);
+.experience-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
 }
 
-.timeline li:nth-child(even) {
-    float: right;
-    clear: left;
-    transform: translateX(30px);
+.experience-content .company {
+    font-weight: bold;
+    color: var(--secondary-color);
 }
 
-.timeline-badge {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px var(--bg-color), inset 0 2px 0 rgba(0,0,0,0.08), 0 3px 0 4px rgba(0,0,0,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--bg-color);
+.experience-content .date {
+    font-style: italic;
+    color: #888;
+    margin-bottom: 10px;
 }
 
-.timeline li:nth-child(odd) .timeline-badge {
-    right: -20px;
+.experience-content ul {
+    padding-left: 20px;
 }
 
-.timeline li:nth-child(even) .timeline-badge {
-    left: -20px;
+.experience-content li {
+    margin-bottom: 5px;
 }
 
 .skills-container {
@@ -226,52 +156,26 @@ h1, h2, h3 {
 }
 
 .skill {
-    margin-bottom: 35px;
-    position: relative;
-    overflow-x: hidden;
+    margin-bottom: 20px;
 }
 
 .skill-name {
-    position: absolute;
-    top: -25px;
-    left: 0;
-    font-size: 18px;
+    margin-bottom: 5px;
 }
 
 .skill-bar {
-    height: 14px;
+    height: 10px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .skill-per {
-    height: 14px;
+    height: 10px;
     background: var(--primary-color);
-    border-radius: 3px;
+    border-radius: 5px;
     position: relative;
-    animation: fillBars 2.5s 1;
-}
-
-.skill-per::before {
-    content: attr(per);
-    position: absolute;
-    padding: 4px 6px;
-    background: var(--text-color);
-    border-radius: 4px;
-    font-size: 12px;
-    top: -35px;
-    right: 0;
-    transform: translateX(50%);
-    color: var(--bg-color);
-}
-
-@keyframes fillBars {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
+    transition: width 0.5s ease;
 }
 
 form {
@@ -281,38 +185,166 @@ form {
 
 input, textarea {
     margin-bottom: 1rem;
-    padding: 0.75rem;
+    padding: 0.5rem;
     border: none;
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-color);
-    font-family: 'Roboto', sans-serif;
-    transition: box-shadow 0.3s ease;
 }
 
-input:focus, textarea:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--primary-color);
+button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: var(--secondary-color);
 }
 
 .btn-neon {
     position: relative;
     display: inline-block;
-    padding: 15px 30px;
+    padding: 10px 20px;
     color: var(--primary-color);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    text-decoration: none;
     font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
     overflow: hidden;
-    transition: 0.2s;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    border: 1px solid var(--primary-color);
+    margin: 10px 0;
 }
 
 .btn-neon:hover {
-    color: var(--bg-color);
     background: var(--primary-color);
-    box-shadow: 0 0 10px var(--primary-color), 0 0 40px var(--primary-color), 0 0 80px var(--primary-
+    color: var(--bg-color);
+    box-shadow: 0 0 5px var(--primary-color),
+                0 0 25px var(--primary-color),
+                0 0 50px var(--primary-color),
+                0 0 100px var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+}
+
+#contacto {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(255, 0, 0, 0.527);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#contact-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#contact-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+#contact-form button {
+    justify-self: start;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#contact-form button:hover {
+    background: var(--secondary-color);
+    box-shadow: 0 0 15px var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+@keyframes neon-glow {
+    0% {
+        box-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--primary-color), 0 0 35px var(--primary-color);
+    }
+    100% {
+        box-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+    }
+}
+
+#contact-form button:focus {
+    animation: neon-glow 1.5s ease-in-out infinite;
+}
+
+/* Estilos para el placeholder */
+#contact-form input::placeholder,
+#contact-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Estilo para cuando el input es válido */
+#contact-form input:valid,
+#contact-form textarea:valid {
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #contact-form {
+        grid-template-columns: 1fr;
+    }
+    
+    #contact-form button {
+        justify-self: center;
+    }
+}
+
+#contact-form input,
+#contact-form textarea {
+    font-family: var(--body-font);
+}
+
+#contact-form button {
+    font-family: var(--heading-font);
+}

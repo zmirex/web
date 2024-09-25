@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Log</title>
+    <style>
+        :root {
+            --bg-color: #2c2f33;
+            --card-bg: #36393f;
+            --input-bg: #40444b;
+            --text-color: #ffffff;
+            --primary-color: #da7272;
+            --success-color: #43b581;
+            --error-color: #f04747;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: var(--primary-color);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-bg);
+            border-radius: 4px;
+            color: var(--text-color);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(218, 114, 114, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #ff3434;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #logList {
+            margin-top: 30px;
+            border-top: 1px solid var(--input-bg);
+            padding-top: 20px;
+        }
+
+        .log-entry {
+            background-color: var(--input-bg);
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+        }
+
+        .log-entry:hover {
+            transform: translateX(5px);
+        }
+
+        .log-type {
+            font-weight: bold;
+        }
+
+        .log-type.Warn { color: #faa61a; }
+        .log-type.Mute { color: #005e00; }
+        .log-type.Kick { color: #f04747; }
+        .log-type.Ban { color: #992d22; }
+
+        #webhookUrl {
+            margin-bottom: 20px;
+        }
+
+        .notification {
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .error {
+            background-color: var(--error-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Nuevo Log</h1>
+        <input type="text" id="webhookUrl" placeholder="https://discordapp.com/api/webhooks/1288287393216204811/8eQFPmx6id8DwVWAXdLh1XzUn_1oKVGc_6SkaaFznhC06f5SnQX9BFuJe4YL6tSuhWku">
+        <form id="logForm">
+            <label for="username">Nombre de Usuario *</label>
+            <input type="text" id="username" required placeholder="Ingrese el nombre de usuario">
+            
+            <label for="type">Tipo *</label>
+            <select id="type" required>
+                <option value="">Seleccione un tipo</option>
+                <option value="Warn">Warn</option>
+                <option value="Mute">Mute</option>
+                <option value="Kick">Kick</option>
+                <option value="Ban">Ban</option>
+            </select>
+            
+            <label for="reason">Razón *</label>
+            <input type="text" id="reason" required placeholder="Ingrese la razón">
+            
+            <button type="submit">Crear Log</button>
+        </form>
+        <div id="notification" class="notification"></div>
+        <div id="logList"></div>
+    </div>
+
+    <script>
+        const logForm = document.getElementById('logForm');
+        const logList = document.getElementById('logList');
+        const webhookUrlInput = document.getElementById('webhookUrl');
+        const notification = document.getElementById('notification');
+
+        let logs = JSON.parse(localStorage.getItem('logs')) || [];
+        let webhookUrl = localStorage.getItem('webhookUrl') || '';
+
+        webhookUrlInput.value = webhookUrl;
+
+        function displayLogs() {
+            logList.innerHTML = logs.map(log => `
+                <div class="log-entry">
+                    <span class="log-type ${log.type}">${log.type}</span>: 
+                    <strong>${log.username}</strong> - ${log.reason}
+                </div>
+            `).join('');
+        }
+
+        displayLogs();
+
+        webhookUrlInput.addEventListener('change', function() {
+            webhookUrl = this.value;
+            localStorage.setItem('webhookUrl', webhookUrl);
+        });
+
+        function showNotification(message, isSuccess) {
+            notification.textContent = message;
+            notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        async function sendToDiscord(log) {
+            if (!webhookUrl) {
+                showNotification('Por favor, ingresa una URL de webhook válida.', false);
+                return;
+            }
+
+            const embed = {
+                title: `Nuevo Log: ${log.type}`,
+                color: log.type === 'Warn' ? 16776960 : log.type === 'Kick' ? 15749300 : 10038562,
+                fields: [
+                    { name: 'Usuario', value: log.username },
+                    { name: 'Razón', value: log.reason },
+                    { name: 'Fecha', value: new Date(log.timestamp).toLocaleString() }
+                ]
+            };
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ embeds: [embed] })
+                });
+
+                if (response.ok) {
+                    showNotification('Log enviado a Discord exitosamente.', true);
+                } else {
+                    throw new Error('Error al enviar el log a Discord.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Error al enviar el log a Discord.', false);
+            }
+        }
+
+        logForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const type = document.getElementById('type').value;
+            const reason = document.getElementById('reason').value;
+            
+            const newLog = { username, type, reason, timestamp: new Date().toISOString() };
+            logs.unshift(newLog);
+            
+            localStorage.setItem('logs', JSON.stringify(logs));
+            
+            await sendToDiscord(newLog);
+            
+            logForm.reset();
+            displayLogs();
+        });
+    </script>
+</body>
+</html>
